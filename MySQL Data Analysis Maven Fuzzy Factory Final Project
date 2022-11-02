@@ -7,6 +7,8 @@ FROM orders
 GROUP BY Year, Quarter
 ORDER BY Year, Quarter;
 
+
+
 SELECT YEAR(website_sessions.created_at) AS Year,
 		QUARTER(website_sessions.created_at) AS Quarter,
 		COUNT(DISTINCT(orders.order_id))/COUNT(DISTINCT(website_sessions.website_session_id)) AS session_to_order_conversion_rate,
@@ -16,6 +18,8 @@ FROM orders
 		RIGHT JOIN website_sessions ON orders.website_session_id = website_sessions.website_session_id
 GROUP BY Year, Quarter
 ORDER BY Year, Quarter;
+
+
 
 SELECT YEAR(website_sessions.created_at) AS Year,
 		QUARTER(website_sessions.created_at) AS Quarter,
