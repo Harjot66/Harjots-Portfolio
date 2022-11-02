@@ -32,3 +32,17 @@ FROM orders
 		RIGHT JOIN website_sessions ON orders.website_session_id = website_sessions.website_session_id
 GROUP BY Year, Quarter
 ORDER BY Year, Quarter;
+
+
+
+SELECT YEAR(website_sessions.created_at) AS Year,
+		QUARTER(website_sessions.created_at) AS Quarter,
+        COUNT(DISTINCT(CASE WHEN website_sessions.utm_source = 'gsearch' AND website_sessions.utm_campaign = 'nonbrand' THEN orders.order_id ELSE NULL END))/COUNT(DISTINCT(CASE WHEN website_sessions.utm_source = 'gsearch' AND website_sessions.utm_campaign = 'nonbrand' THEN website_sessions.website_session_id ELSE NULL END)) AS gsearch_and_nonbrand_orders_conversion_rate,
+        COUNT(DISTINCT(CASE WHEN website_sessions.utm_source = 'bsearch' AND website_sessions.utm_campaign = 'nonbrand' THEN orders.order_id ELSE NULL END))/COUNT(DISTINCT(CASE WHEN website_sessions.utm_source = 'bsearch' AND website_sessions.utm_campaign = 'nonbrand' THEN website_sessions.website_session_id ELSE NULL END)) AS bsearch_and_nonbrand_orders_conversion_rate,
+        COUNT(DISTINCT(CASE WHEN website_sessions.utm_campaign = 'brand' THEN orders.order_id ELSE NULL END))/COUNT(DISTINCT(CASE WHEN website_sessions.utm_campaign = 'brand' THEN website_sessions.website_session_id ELSE NULL END)) AS brand_orders_conversion_rates,
+        COUNT(DISTINCT(CASE WHEN website_sessions.utm_source IS NULL AND website_sessions.http_referer IS NOT NULL THEN orders.order_id ELSE NULL END))/COUNT(DISTINCT(CASE WHEN website_sessions.utm_source IS NULL AND website_sessions.http_referer IS NOT NULL THEN website_sessions.website_session_id ELSE NULL END)) AS organic_orders_conversion_rate,
+        COUNT(DISTINCT(CASE WHEN website_sessions.utm_source IS NULL AND website_sessions.http_referer IS NULL THEN orders.order_id ELSE NULL END))/COUNT(DISTINCT(CASE WHEN website_sessions.utm_source IS NULL AND website_sessions.http_referer IS NULL THEN website_sessions.website_session_id ELSE NULL END)) AS direct_type_in_orders_conversion_rate
+FROM orders
+		RIGHT JOIN website_sessions ON orders.website_session_id = website_sessions.website_session_id
+GROUP BY Year, Quarter
+ORDER BY Year, Quarter;
