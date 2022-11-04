@@ -63,3 +63,22 @@ SELECT YEAR(order_items.created_at) AS years,
         SUM(price_usd - cogs_usd) AS total_margin
 FROM order_items
 GROUP BY years, months;
+
+
+
+CREATE TEMPORARY TABLE products_pageviews
+SELECT website_session_id,
+		website_pageview_id,
+        created_at AS viewed_at
+FROM website_pageviews
+WHERE pageview_url = '/products';
+
+SELECT YEAR(products_pageviews.viewed_at) AS years,
+		MONTH(products_pageviews.viewed_at) AS months,
+        COUNT(DISTINCT(website_pageviews.website_session_id))/COUNT(DISTINCT(products_pageviews.website_session_id)) AS percentage_of_sessions_clicking_through_another_page,
+        COUNT(DISTINCT(orders.order_id))/COUNT(DISTINCT(products_pageviews.website_session_id)) AS conversion_from_products_to_placing_an_order
+FROM products_pageviews
+		LEFT JOIN website_pageviews ON website_pageviews.website_session_id = products_pageviews.website_session_id
+			AND website_pageviews.website_pageview_id > products_pageviews.website_pageview_id
+        LEFT JOIN orders ON orders.website_session_id = products_pageviews.website_session_id
+GROUP BY years, months;
