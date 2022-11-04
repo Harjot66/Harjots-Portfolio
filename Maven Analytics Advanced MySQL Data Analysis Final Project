@@ -95,6 +95,6 @@ SELECT primary_product_id,
         COUNT(DISTINCT(CASE WHEN cross_sell_product_id = 2 THEN order_id ELSE NULL END)) AS number_sold_product2,
         COUNT(DISTINCT(CASE WHEN cross_sell_product_id = 3 THEN order_id ELSE NULL END)) AS number_sold_product3,
         COUNT(DISTINCT(CASE WHEN cross_sell_product_id = 4 THEN order_id ELSE NULL END)) AS number_sold_product4
-FROM ( SELECT primary_products.order_id, primary_products.primary_product_id, primary_products.created_at, order_items.product_id AS cross_sell_product_id
+FROM (SELECT primary_products.order_id, primary_products.primary_product_id, primary_products.created_at, order_items.product_id AS cross_sell_product_id
 			FROM primary_products LEFT JOIN order_items ON order_items.order_id = primary_products.order_id AND order_items.is_primary_item = 0) AS primary_w_cross_sell
 GROUP BY primary_product_id
