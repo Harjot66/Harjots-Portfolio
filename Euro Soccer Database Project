@@ -1,0 +1,6 @@
+/* To determine the team's chancecreationshooting by team where average chancecreationshooting is more than 60 */
+
+SELECT team.team_long_name, team_attributes.chancecreationshooting
+FROM team LEFT JOIN team_attributes ON team_attributes.team_api_id = team.team_api_id
+WHERE team_attributes.chancecreationshooting >= 60
+GROUP BY team.team_long_name;
