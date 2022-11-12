@@ -4,3 +4,12 @@ SELECT team.team_long_name, team_attributes.chancecreationshooting
 FROM team LEFT JOIN team_attributes ON team_attributes.team_api_id = team.team_api_id
 WHERE team_attributes.chancecreationshooting >= 60
 GROUP BY team.team_long_name;
+
+-- To determine the number of matches by country and show the top5 countries with most number of matches
+
+SELECT country.name AS country_name, COUNT(DISTINCT(matches.id)) AS num_matches
+FROM country LEFT JOIN League ON league.country_id = country.id
+			LEFT JOIN Matches ON matches.league_id = league.id
+GROUP BY country.name
+ORDER BY num_matches DESC
+LIMIT 5;
