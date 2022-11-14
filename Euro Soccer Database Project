@@ -19,3 +19,10 @@ LIMIT 5;
 SELECT player.player_name, player_attributes.volleys
 FROM player LEFT JOIN player_attributes ON player.id = player_attributes.id
 WHERE player_attributes.volleys = 75
+
+-- To delete Spain from the list of countries
+
+SELECT id FROM Country WHERE name = 'Spain';
+
+DELETE FROM Country
+WHERE id = 2;
