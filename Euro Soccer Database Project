@@ -26,3 +26,8 @@ SELECT id FROM Country WHERE name = 'Spain';
 
 DELETE FROM Country
 WHERE id = 2;
+
+-- To insert a new player into the Player table
+
+INSERT INTO Player (id, player_api_id, player_name, player_fifa_api_id, birthday, height, weight)
+VALUES (1054, '985432', "Harry Williams", '527498', '1975-06-25 00:00:00', '178', '164');
