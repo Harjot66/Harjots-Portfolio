@@ -31,3 +31,10 @@ WHERE id = 2;
 
 INSERT INTO Player (id, player_api_id, player_name, player_fifa_api_id, birthday, height, weight)
 VALUES (1054, '985432', "Harry Williams", '527498', '1975-06-25 00:00:00', '178', '164');
+
+-- To determine which countries participated in the league
+
+SELECT country.name, CASE WHEN country.id = league.country_id THEN "YES"
+				ELSE "NO" 
+                END AS if_country_participated
+FROM country LEFT JOIN league ON country.id = league.country_id
