@@ -1,0 +1,115 @@
+import random
+
+def mafia_game_randomizer(number_of_players):
+    
+    if number_of_players == '6':
+        
+        positions_for_number_players = ["Mafia", "Detective", "Healer", "Villager", "Villager", "Villager"]
+        
+        player1 = input("Enter Player 1 name: ")
+        player2 = input("Enter Player 2 name: ")
+        player3 = input("Enter Player 3 name: ")
+        player4 = input("Enter Player 4 name: ")
+        player5 = input("Enter Player 5 name: ")
+        player6 = input("Enter Player 6 name: ")
+        
+        list_of_player_names = [player1, player2, player3, player4, player5, player6]
+        
+        list_of_numbers = list(range(0,6))
+        
+        randomized_numbers_list = list(random.sample(range(0,6), 6))
+        
+        dictionary_of_roles = {}
+        
+        for number in list_of_numbers:
+            
+            dictionary_of_roles[list_of_player_names[number]] = positions_for_number_players[randomized_numbers_list[number]]
+        
+        for key, value in dictionary_of_roles.items():
+            
+            print(key + ' is ' + value)
+            
+        def mafia_game(dictionary_of_roles):
+            
+            for key,value in dictionary_of_roles.items():
+                
+                if value == "Healer":
+                    
+                    person_healer_to_save = input('Who would you like to save tonight: ')
+                    
+                    person_saved = person_healer_to_save
+                    
+                else:
+                    
+                    pass
+                
+            for key,value in dictionary_of_roles.items():
+                    
+                if value == "Detective":
+                    
+                    person_detective_to_check = input('Who would you like to check tonight: ')
+                    
+                    if dictionary_of_roles[person_detective_to_check] == "Mafia":
+                        
+                        print("Yes, they are Mafia")
+                        
+                    else:
+                        
+                        print("No, they are not Mafia")
+                        
+                else:
+                    pass
+                
+            for key,value in dictionary_of_roles.items():
+                
+                if value == "Mafia":
+                    
+                    person_mafia_to_kill = input('Who would you like to kill tonight: ')
+                    
+                    if person_mafia_to_kill != person_saved:
+                        
+                        person_mafia_to_kill_list = person_mafia_to_kill
+                        
+                    else:
+                        
+                        person_mafia_to_kill_list = "None"
+                    
+                else:
+                    
+                    pass
+                
+            if person_mafia_to_kill_list != "None":
+                
+                del dictionary_of_roles[person_mafia_to_kill_list]
+                
+                print(person_mafia_to_kill + ' has been killed tonight')
+            
+            else:
+                
+                print("No one has been killed tonight")
+            
+            person_village_killed = input("Who would the town like to kill today: ")
+            
+            del dictionary_of_roles[person_village_killed]
+        
+            print(person_village_killed + " has been killed by the town")
+        
+            if "Mafia" in dictionary_of_roles.values():
+                
+                if len(dictionary_of_roles) <= 3:
+                    
+                    print("Game over, the Mafia wins")
+            
+                mafia_game(dictionary_of_roles)
+            
+            else:
+            
+                print("Game is over, the town wins")
+            
+        mafia_game(dictionary_of_roles)
+        
+    else:
+        
+        print("Error: Number of players must be exactly 8")
+        
+mafia_game_randomizer(input("How many Players are there: "))
