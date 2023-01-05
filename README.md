@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @Harjot66
 - 👀 I’m interested in Data Analytics
-- 🌱 I’m currently learning SQL and Microsoft Excel
+- 🌱 I’m currently learning Python, SQL and Microsoft Excel
 - 💞️ I’m looking to collaborate on Data Analytics Projects
 - 📫 You can reach me at harjotdhaliwal403@icloud.com
 
