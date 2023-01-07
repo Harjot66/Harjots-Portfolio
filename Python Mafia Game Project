@@ -110,6 +110,6 @@ def mafia_game_randomizer(number_of_players):
         
     else:
         
-        print("Error: Number of players must be exactly 8")
+        print("Error: Number of players must be exactly 6")
         
 mafia_game_randomizer(input("How many Players are there: "))
